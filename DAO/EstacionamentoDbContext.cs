@@ -15,9 +15,9 @@ namespace DAO
     {
         //Construtor padrão da classe que, quando invocado, chama o construtor da classe pai
         //que inicializa a connectionstring que contém as informações da base que iremos trabalhar
-        public EstacionamentoDbContext():base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\hbsis\Documents\EstacionamentoDB.mdf;Integrated Security=True;Connect Timeout=30")
+        public EstacionamentoDbContext() : base(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\git_repos\EntityFrameworkBegin\EstacionamentoDB.mdf;Integrated Security=True;Connect Timeout=30")
         {
-            Database.SetInitializer(new EstacionamentoTesteStrategy());
+
         }
 
         public DbSet<Cliente> Clientes { get; set; }
@@ -30,18 +30,20 @@ namespace DAO
             //Remove a convenção que pluraliza em inglês o nome das tabelas.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //Exemplo de criação de convenção customizável
-            //modelBuilder.Conventions.Add<HandleConvention>();
-
             //Adiciona as configurações locais no DbContext
-            //A parte do Assembly.GetExecutingAssembly, faz com que o C#
-            //retorne todos os tipos que são EntityTypeConfiguration dentro do DAO
-            modelBuilder.Configurations
-                        .AddFromAssembly(Assembly.GetExecutingAssembly());
 
+            /*
+            modelBuilder.Configurations.Add(new ClienteMapConfig());
+            modelBuilder.Configurations.Add(new VagaMapConfig());
+            modelBuilder.Configurations.Add(new MovimentacaoMapConfig());
+            */
+
+            //A partir do Assembly.GetExecutingAssembly(), faz com que 
+            //retorne todos os tipos 
+            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
 
             //Adição de uma configuração global que sobrescreve
-            //a convenção padrão da string e a faz já ser VARCHAR NOT NULL
+            //a convenção padrão da string e a faz já ser VARCHAR
             modelBuilder.Properties()
                         .Where(c => c.PropertyType == typeof(string))
                         .Configure(c => c.IsRequired().IsUnicode(false));
@@ -53,14 +55,4 @@ namespace DAO
             base.OnModelCreating(modelBuilder);
         }
     }
-    //public class HandleConvention : Convention
-    //{
-    //    public HandleConvention()
-    //    {
-    //        this.Properties()
-    //            .Where(c => c.PropertyType == typeof(int) && c.Name == "Handle")
-    //            .Configure(c => c.HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
-    //            .IsKey());
-    //    }
-    //}
 }

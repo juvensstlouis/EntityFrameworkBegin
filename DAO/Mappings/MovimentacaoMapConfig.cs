@@ -12,12 +12,14 @@ namespace DAO.Mappings
     {
         public MovimentacaoMapConfig()
         {
+            //Definimos o nome da tabela que está vinculada a entidade descrita lá em cima
             this.ToTable("MOVIMENTACOES");
-            this.Property(macarrao => macarrao.Placa).IsFixedLength().HasMaxLength(8);
-            this.Property(goiaba => goiaba.Modelo).HasMaxLength(50);
 
+            //O IsRequired() e IsUnicode() não são obrigatórios, se forem configurados
+
+            this.Property(m => m.Placa).IsFixedLength().HasMaxLength(7);//.IsUnicode(false).IsRequired();
+            this.Property(m => m.Modelo).HasMaxLength(30);//.IsUnicode(false).IsRequired();
 
         }
-
     }
 }

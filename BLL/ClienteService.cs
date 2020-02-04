@@ -30,6 +30,7 @@ namespace BLL
                     TipoVaga = Entity.Enums.TipoVeiculo.Helicoptero,
                     VagaLivre = true
                 };
+                
                 db.Clientes.Add(c);
                 db.Vagas.Add(v);
                 db.SaveChanges();

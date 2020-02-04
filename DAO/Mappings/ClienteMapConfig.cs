@@ -8,29 +8,30 @@ using System.Threading.Tasks;
 
 namespace DAO.Mappings
 {
-
-    //Configuração LOCAL
     internal class ClienteMapConfig : EntityTypeConfiguration<Cliente>
     {
-
+        //Configuração LOCAL
         public ClienteMapConfig()
         {
             //Definimos o nome da tabela que está vinculada a entidade descrita lá em cima
             this.ToTable("CLIENTES");
-            //Configura a propriedade Nome a ser VARCHAR(50) NOT NULL
 
             //IsRequired => NOT NULL
-            //IsUnicode  => VARCHAR/CHAR
-            //IsFixedLenght => Utilizamos pro EF criar um CHAR ao inves de VARCHAR
-            this.Property(c => c.Nome).HasMaxLength(50);
+            //IsUnicode => VARCHAR/CHAR
+            //IsFixedLength => Utilizamos pro EF criar um CHAR ao invés de VARCHAR
 
-            //Não é mais necessário informar IsRequired e IsUnicode(false)
-            //pois há uma configuração global que determina que a string é assim ^_^
-            this.Property(c => c.CPF).IsFixedLength().HasMaxLength(14);
-                             
-            //O IsRequired não é obrigatório, este método foi chamado apenas
+            //O IsRequired() e IsUnicode() não são obrigatórios, se forem configurados
+
+            //Configura a propriedade Nome a ser  VARCHAR(50) NOT NULL
+            //this.Property(c => c.Nome).HasColumnType("VARCHAR(50)").IsRequired();
+            this.Property(c => c.Nome).HasMaxLength(50);//.IsRequired().IsUnicode(false);
+            
+            //Configura a propriedade CPF a ser CHAR(14) NOT NULL
+            this.Property(c => c.CPF).IsFixedLength().HasMaxLength(14);//.IsUnicode(false).IsRequired();
+            
+            //O ISRequired não é obrigatório, este método foi chamado apenas
             //para tornar o código mais descritivo
-            this.Property(c => c.DataNascimento).HasColumnType("date").IsRequired();
+            this.Property(c => c.DataNascimento).HasColumnType("DATE").IsRequired();
         }
     }
 }

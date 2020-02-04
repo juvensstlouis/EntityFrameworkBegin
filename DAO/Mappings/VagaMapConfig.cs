@@ -12,6 +12,7 @@ namespace DAO.Mappings
     {
         public VagaMapConfig()
         {
+            //Definimos o nome da tabela que está vinculada a entidade descrita lá em cima
             this.ToTable("VAGAS");
         }
     }
