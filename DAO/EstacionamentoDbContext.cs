@@ -30,8 +30,10 @@ namespace DAO
             //Remove a convenção que pluraliza em inglês o nome das tabelas.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //Adiciona as configurações locais no DbContext
+            //Remove a convenção de delete on cascade
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            //Adiciona as configurações locais no DbContext
             /*
             modelBuilder.Configurations.Add(new ClienteMapConfig());
             modelBuilder.Configurations.Add(new VagaMapConfig());
@@ -49,6 +51,7 @@ namespace DAO
                         .Configure(c => c.IsRequired().IsUnicode(false));
 
             //Irá comparar as suas entidades (que estão encapsuladas nos DbSet<T> acima)
+
             //com a estrutura do banco. Se a base não existir, o EF irá criar. Se a base existir,
             //mas estiver diferente (o banco com uma ou mais diferença(s) de coluna(s)), o EF
             //ira executar uma política de DROP.

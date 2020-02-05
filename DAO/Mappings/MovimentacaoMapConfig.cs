@@ -20,6 +20,8 @@ namespace DAO.Mappings
             this.Property(m => m.Placa).IsFixedLength().HasMaxLength(7);//.IsUnicode(false).IsRequired();
             this.Property(m => m.Modelo).HasMaxLength(30);//.IsUnicode(false).IsRequired();
 
+            this.HasRequired(c => c.Vaga);
+
         }
     }
 }
