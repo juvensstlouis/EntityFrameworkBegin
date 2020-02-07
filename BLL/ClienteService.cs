@@ -20,9 +20,9 @@ namespace BLL
                 //Ao buscar um dado de entity, existe um mecanismo conhecido
                 //como TRACKING. Este mecanismo observa as alterações feitas 
                 //no objeto e, quando o método SaveChanges é chamado na base,
-                //ele efetuará um umpdate de tudo que foi alterado.
-                Cliente c = db.Clientes.Find(5);
-                c.Nome += " Bernart";
+                //ele efetuará um update de tudo que foi alterado.
+                Cliente c2 = db.Clientes.Find(5);
+                c2.Nome += " Bernart";
                 db.SaveChanges();
 
                 //Update sem a necessidade de ir no banco a primeira vez para buscar pelo id
@@ -40,7 +40,7 @@ namespace BLL
                 //Necessário para ser excluido
                 VagaASerExcluida.ID = 5;
                 //------------------------------
-                db.Entry<Vaga>(VagaASerExcluida).State = System.Data.Entity.EntityState.Modified;
+                db.Entry<Vaga>(VagaASerExcluida).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
 
                 //O ToList que faz a pesquisa no banco
